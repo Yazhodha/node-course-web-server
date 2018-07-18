@@ -2,6 +2,7 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000; //to get dynamic port from heroku environment variable
 
 var app = express(); //calling express to take over
 
@@ -35,9 +36,9 @@ app.use((req, res, next)=>{
 
 
 //creating a maintenance middleware to show viewers site is under construction.
-app.use((req, res, next) => {
-    res.render('maintenance.hbs');
-});
+// app.use((req, res, next) => {
+//     res.render('maintenance.hbs');
+// });
 
 app.use(express.static(__dirname + '/public'));//using a middlware to access absolute path (this should be placed at the bottom of all other middlewares)
 
@@ -80,6 +81,6 @@ app.get('/contact', (req, res)=>{
     });
 });
 
-app.listen(3000, ()=>{
-    console.log('Server started on PORT 3000');
+app.listen(port, ()=>{
+    console.log(`Server started on PORT ${port}`);
 });
